@@ -1,7 +1,7 @@
 # Instaclone-Web
 
 - [x] Router
-- [ ] Authentication
-- [ ] Architecture
+- [x] Authentication
+- [x] Architecture
 - [ ] Styles & Darkmode
 - [ ] 
