@@ -4,7 +4,6 @@ import styled from "styled-components";
 import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
-import Devider from "../components/auth/Devider";
 import FormBox from "../components/auth/FormBox";
 import Input from "../components/auth/Input";
 import routes from "../routes";
