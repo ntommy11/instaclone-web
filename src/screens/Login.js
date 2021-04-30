@@ -1,89 +1,16 @@
-import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookSquare, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import { darkModeVar, isLoggedInVar } from "../apollo";
+import AuthLayout from "../components/auth/AuthLayout";
+import BottomBox from "../components/auth/BottomBox";
+import Button from "../components/auth/Button";
+import Devider from "../components/auth/Devider";
+import FormBox from "../components/auth/FormBox";
+import Input from "../components/auth/Input";
+import routes from "../routes";
 
-const Title = styled.h1`
-  color: ${props=>props.theme.fontColor};
-  font-family:--apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
-  
-`
-const WhiteBox = styled.div`
-  background-color:white;
-  border: 1px solid rgb(219,219,219);
-`
-const TopBox = styled(WhiteBox)`
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  padding: 35px 40px 25px 40px;
-  margin-bottom: 10px;
-  form{
-    margin-top: 35px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    width: 100%;
-    input{
-      box-sizing: border-box;
-      width:100%;
-      border-radius: 3px;
-      margin-bottom: 5px;
-      padding: 7px;
-      background-color: #fafafa;
-      border: 0.5px solid rgb(219,219,219);
-      &:last-child{
-        border: none;
-        margin-top: 12px;
-        background-color: #0095f6;
-        color: white;
-        text-align:center;
-        padding: 8px 0px;
-        font-weight: 600;
-      }
-    }
-  }
-`
-const BottomBox = styled(WhiteBox)`
-  padding: 20px 0px;
-  text-align:center;
-  span{
-    font-size: 12px;
-    padding: 
-  }
-`
-const Container = styled.div`
-  display:flex;
-  height: 100vh;
-  justify-content:center;
-  align-items:center;
-  flex-direction: column;
-`
-const TogglePotato = styled.button`
-  color: red;
-`
 
-const Separator = styled.div`
-  margin: 20px 0px 30px 0px;
-  text-transform: uppercase;
-  display: flex;
-  justify-content:center;
-  width:100%;
-  align-items:center;
-  div{
-    width: 100%;
-    height: 1px;
-    background-color: rgb(219,219,219);
-  }
-  span{
-    margin: 0px 10px;
-    font-weight: 600;
-    color: #8e8e8e;
-  }
-`
 const FacebookLogin = styled.div`
   color: #385285;
   span{
@@ -95,30 +22,22 @@ function Login(){
   const [potato, setPotato] = useState(false);
   const togglePotato=()=>setPotato((current)=>!current);
   return (
-    <Container>
-      <div>
-        <TopBox>
-          <h1>Instagram</h1>
+      <AuthLayout>
+        <FormBox>
+          <FontAwesomeIcon icon={faInstagram}/>
           <form>
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <input type="submit" placeholder="log in"/>
+            <Input type="text" placeholder="username"/>
+            <Input type="password" placeholder="password"/>
+            <Button type="submit" value="Log in"/>
           </form>
-          <Separator>
-            <div></div>
-            <span>Or</span>
-            <div></div>
-          </Separator>
+          <Devider text="or"/>
           <FacebookLogin>
             <FontAwesomeIcon icon={faFacebookSquare}/>
             <span>Log in with Facebook</span>
           </FacebookLogin>
-        </TopBox>
-        <BottomBox>
-          <span>Don't have an account?</span><a href="#">Sign up</a>
-        </BottomBox>
-      </div>
-    </Container>
+        </FormBox>
+        <BottomBox cta="Don't have an account?" link={routes.signUp} linkText="Sign Up"/>
+      </AuthLayout>
   )
 }
 export default Login;
