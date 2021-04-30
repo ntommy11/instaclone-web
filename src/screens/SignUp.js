@@ -23,13 +23,6 @@ const Subtitle = styled.h3`
   margin-top: 10px;
 `
 
-const FacebookLogin = styled.div`
-  color: #385285;
-  span{
-    margin-left: 10px;
-    font-weight: 600;
-  }
-`
 function SignUp(){
   return (
       <AuthLayout>
