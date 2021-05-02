@@ -15,7 +15,6 @@ const Container = styled(BaseBox)`
 `
 
 function BottomBox({cta,link,linkText}){
-  console.log(cta,link,linkText);
   return(
     <Container>
       <span>{cta}</span>
