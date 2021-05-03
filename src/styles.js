@@ -2,13 +2,18 @@ import { createGlobalStyle } from "styled-components"
 import reset from 'styled-reset';
 export const lightTheme = {
   fontColor: "#2c2c2c",
-  bgColor: "#efefef",  
+  bgColor: "#FAFAFA",  
   blue: "#0095f6",
+  fontColor: "rgb(38,38,38)",
   borderColor: "rgb(219,219,219)",
+  boxColor: "white",
 }
 export const darkTheme = {
-  fontColor: "white",
-  bgColor: "#2c2c2c"
+  fontColor: "#dedede",
+  bgColor: "#2c2c2c",
+  blue: "#0095f6",
+  borderColor: "#787878",
+  boxColor: "#1b1b1b",
 }
 
 export const GlobalStyles = createGlobalStyle`
@@ -21,9 +26,9 @@ export const GlobalStyles = createGlobalStyle`
     }
     body {
         background-color: ${(props) => props.theme.bgColor};
-        background-color: #FAFAFA;
         font-size:14px;
         font-family:'Open Sans', sans-serif;
+        color: ${props=>props.theme.fontColor}
     }
     a {
       text-decoration: none;

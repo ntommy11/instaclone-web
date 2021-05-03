@@ -1,8 +1,12 @@
+import { useMutation } from "@apollo/client";
 import { faFacebookSquare, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import gql from "graphql-tag";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router";
 import styled from "styled-components";
+import { logUserIn } from "../apollo";
 import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
@@ -21,25 +25,67 @@ const FacebookLogin = styled.div`
     font-weight: 600;
   }
 `
+
+const LOGIN_MUTATION = gql`
+  mutation login($username:String!, $password:String!){
+    login(username:$username, password:$password){
+      ok
+      token
+      error 
+    }
+  }
+`
+
+const Notification = styled.div`
+  color:#2ecc71;
+`
+
 function Login(){
+  const location = useLocation();
   const {
     register, 
     watch, 
     handleSubmit, // (onValid, onInvalid) 
     formState,
     setValue,
+    getValues,
+    setError,
+    clearErrors
   } = useForm({
     mode:"onChange",
 
   }); 
+
+  const [login,{loading}] = useMutation(LOGIN_MUTATION,{
+    onCompleted:(data)=>{
+      const {login:{ok,error,token}} = data;
+      if(!ok){
+        window.alert(error);
+      }
+      else{
+        logUserIn(token);
+      }
+    }
+  })
+
+
   console.log("watch:",watch());
-  console.log(formState.errors);
+  console.log("errors:",formState.errors);
   console.log("isValid?", formState.isValid);
   const onValid = (data)=>{
     console.log(data);
+    if(loading) return;
+    console.log(data)
+    const {username, password} = getValues();
+    login({
+      variables:{
+        username,
+        password,
+      }
+    })
   }
   const onInvalid = (data)=>{
-    console.log(data)
+    console.log(data);
   }
 
   return (
@@ -47,6 +93,9 @@ function Login(){
         <PageTitle title="Login"/>
         <FormBox>
           <FontAwesomeIcon icon={faInstagram}/>
+          <Notification>
+            {location?.state?.message}
+          </Notification>
           <form onSubmit={handleSubmit(onValid,onInvalid)}>
             <Input 
               {...register('username',{
@@ -70,7 +119,8 @@ function Login(){
               }})}
               type="password" 
               placeholder="password"
-              invalid={Boolean(formState.errors?.password?.message)}    
+              invalid={Boolean(formState.errors?.password?.message)}   
+               
             />
             <FormError message={formState.errors?.password?.message}/>
             <Button type="submit" value="Log in" disabled={!formState.isValid || !Object.keys(watch()).length}/>
