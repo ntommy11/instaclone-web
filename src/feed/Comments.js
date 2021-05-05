@@ -21,16 +21,17 @@ const CREATE_COMMENT = gql`
 `
 
 
-const CommentCount = styled.span`
+const CommentCount = styled.div`
   opacity: 0.5;
   font-size: 12px;
-  margin-top:10px;
+  margin-top:20px;
+  margin-bottom: 5px;
   font-weight: 600;
 `
 
 const Form = styled.div`
   border-top: 1px solid #dedede;
-  padding-top: 20px;
+  padding-top: 10px;
   margin-top: 10px;
 `
 function Comments({pid,author, caption, numComment, comments}){
@@ -102,9 +103,18 @@ function Comments({pid,author, caption, numComment, comments}){
   }
   return(
     <Container>
-      <Comment author={author} payload={caption}/>
+      <Comment  author={author} payload={caption}/>
       <CommentCount>{numComment===1?"1 comment":`${numComment} comments`}</CommentCount>
-      {comments?.map(comment=><Comment key={comment.id} author={comment.user.username} payload={comment.payload}/>)}
+      {comments?.map(comment=>(
+        <Comment 
+          pid={pid}
+          key={comment.id} 
+          id={comment.id} 
+          author={comment.user.username} 
+          payload={comment.payload}
+          isMine={comment.isMine}
+        />)
+      )}
     <Form>
       <form onSubmit={handleSubmit(onValid)}>
         <input name="payload" {...register('payload',{required:true})} type="text" placeholder="Write a comment..." />
