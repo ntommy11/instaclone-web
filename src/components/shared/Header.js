@@ -18,6 +18,8 @@ const SHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  top: 0;
 `;
 
 const Wrapper = styled.div`
@@ -55,7 +57,7 @@ function Header() {
     <SHeader>
       <Wrapper>
         <Column>
-          <FontAwesomeIcon icon={faInstagram} size="2x" style={{marginLeft: "10px"}}/>
+          <img src="logo2.png" width="120" style={{marginLeft:20}}/>
         </Column>
         <Column>
           {isLoggedIn ? (
