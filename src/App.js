@@ -1,10 +1,10 @@
 
 import { ApolloProvider, useReactiveVar } from '@apollo/client';
-import { useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { isLoggedInVar, darkModeVar, client } from './apollo';
+import Layout from './components/shared/Layout';
 import routes from './routes';
 import Home from './screens/Home';
 import Login from './screens/Login';
@@ -26,7 +26,12 @@ function App() {
             <Switch>
               <Route path={routes.home} exact>
                 {
-                  isLoggedIn? <Home />:<Login />
+                  isLoggedIn? 
+                  <Layout>
+                    <Home />
+                  </Layout>
+                  :
+                  <Login />
                 }
               </Route>
               {!isLoggedIn?(

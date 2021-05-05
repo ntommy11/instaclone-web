@@ -54,7 +54,7 @@ function SignUp(){
   const [createAccount,{loading}] =useMutation(SIGNUP_MUTATION,{
     onCompleted:(data)=>{
       console.log(data);
-      const {createAccount:{ok,error}} = data;
+      const {createAccount:{ok}} = data;
       if(!ok){
         window.alert("Sign up FAILED");
       }else{

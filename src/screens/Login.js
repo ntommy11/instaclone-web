@@ -2,7 +2,6 @@ import { useMutation } from "@apollo/client";
 import { faFacebookSquare, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import gql from "graphql-tag";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router";
 import styled from "styled-components";
@@ -47,10 +46,7 @@ function Login(){
     watch, 
     handleSubmit, // (onValid, onInvalid) 
     formState,
-    setValue,
     getValues,
-    setError,
-    clearErrors
   } = useForm({
     mode:"onChange",
 
